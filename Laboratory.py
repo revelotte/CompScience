@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import linregress
 
-daysOfExercise = np.array([7, 14, 22, 30, 40, 55])
-weight = np.array([60, 59, 56, 52, 48, 45])
+daysOfExercise = np.array([140,155,159,179,192,200,212])
+weight = np.array([60,62,67,70,71,72,75])
 
 slope, intercept, r_value, p_value, std_err = linregress(daysOfExercise, weight)
 
