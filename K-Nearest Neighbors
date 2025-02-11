@@ -1,0 +1,43 @@
+import random
+import math
+
+# Generate synthetic dataset
+def generate_dataset(num_samples=100):
+    data = []
+    for _ in range(num_samples):
+        x = random.uniform(0, 10)
+        y = random.uniform(0, 10)
+        label = 1 if x + y > 10 else 0  # Simple decision rule
+        data.append((x, y, label))
+    return data
+
+# Calculate Euclidean distance
+def euclidean_distance(p1, p2):
+    return math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
+
+# KNN algorithm
+def knn(train_data, test_point, k=3):
+    distances = [(euclidean_distance(test_point, (x, y)), label) for x, y, label in train_data]
+    distances.sort(key=lambda x: x[0])  # Sort by distance
+    nearest_neighbors = distances[:k]
+    
+    # Majority vote
+    votes = {}
+    for _, label in nearest_neighbors:
+        votes[label] = votes.get(label, 0) + 1
+
+    return max(votes, key=votes.get)
+
+# Split dataset into training and testing
+dataset = generate_dataset(100)
+train_data = dataset[:80]
+test_data = dataset[80:]
+
+# Evaluate KNN
+correct = 0
+for x, y, actual_label in test_data:
+    predicted_label = knn(train_data, (x, y), k=3)
+    correct += (predicted_label == actual_label)
+
+accuracy = correct / len(test_data)
+print(f"KNN Accuracy: {accuracy:.2f}")
