@@ -49,3 +49,6 @@ for i in range(len(test_data)):
 
 accuracy = correct / len(test_data)
 print(f"KNN Accuracy: {accuracy:.2f}")
+
+# The result is
+# KNN Accuracy: 1.00
